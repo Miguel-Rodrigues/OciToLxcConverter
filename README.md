@@ -29,7 +29,7 @@ $ buildah bud --squash -t mysqlcustom:latest ./dockerfile
 
 And export the image as a OCI gzip archive
 ```sh
-$ buildah --compression-format gzip --compression-level 9 push mysqlcustom:latest oci-archive:mysqlcustom.tar
+$ buildah --compression-format gzip push mysqlcustom:latest oci-archive:mysqlcustom.tar
 ```
 
 This creates a tar archive with the following structure:
@@ -84,6 +84,5 @@ $ cat ./entrypoint.sh
 This gzip file can then be uploaded to the defined template folder on the proxmox ve and the entrypoint can be assigned to a settings `lxc.init` on the container config file. (To be tested)
 
 ## TODO:
-- Extract the environment variables into a file
 - Find a way to inject the environment variables directly to the image rootfs or into the CT config file.
 - Find a way to inject the entrypoint script directly to the image rootfs and run after startup, or into the CT config file.

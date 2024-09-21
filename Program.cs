@@ -1,6 +1,5 @@
 ﻿using System.Formats.Tar;
 using System.Text.Json;
-using System.Linq;
 
 // Get work files and folders
 if (args.Length > 2 || args.Length <= 0)
@@ -48,10 +47,13 @@ try
     // Move and rename the image file to the output folder and add entrypoint script.
     Console.WriteLine("Saving entrypoint script and image");
     var entrypoint = string.Join(" ", config.GetProperty("config").GetProperty("Entrypoint").EnumerateArray().Select(x => x.GetString()));
+    var envVars = string.Join("\n", config.GetProperty("config").GetProperty("Env").EnumerateArray().Select(x => x.GetString()));
     var newImagePath = Path.Combine(output, new FileInfo(archive).Name.Split('.')[0] + ".tar.gz");
     var newEntrypointFile = Path.Combine(output, "entrypoint.sh");
+    var newEnvVarsFile = Path.Combine(output, "env.txt");
     File.Copy(imageFile, newImagePath, true);
     File.WriteAllText(newEntrypointFile, entrypoint);
+    File.WriteAllText(newEnvVarsFile, envVars);
     
     // Garbage collect
     Console.WriteLine("Garbage collecting");

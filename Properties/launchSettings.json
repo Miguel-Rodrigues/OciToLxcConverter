@@ -2,7 +2,7 @@
   "profiles": {
     "OciToLxcConverter": {
       "commandName": "Project",
-      "commandLineArgs": "./mysqlcustom.tar",
+      "commandLineArgs": ".\\mysqlcustom.tar",
       "workingDirectory": "C:\\Users\\migue\\Desktop"
     }
   }
